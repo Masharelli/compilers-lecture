@@ -1,25 +1,12 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
 
-bool T();
-bool E();
+
+
 char letra;
-
-
-
-
-bool esEntero(){
-	if(isdigit(letra)){
-		letra = getchar();
-		while(esEntero())
-		return true;
-	}else{
-		return false;
-	}
-}
+bool E();
+bool T();
 
 bool comparacionChar(char t) {
     if (letra == t) {
@@ -30,16 +17,12 @@ bool comparacionChar(char t) {
 		return false;
 }
 
-bool E(){
-	if (T()){
-		if (comparacionChar('+')){
-			if (E()){
-				return true;
-			}
-			return false;
-		}
+bool esEntero(){
+	if(isdigit(letra)){
+		letra = getchar();
+		while (esEntero());
 		return true;
-	} else{
+	}else{
 		return false;
 	}
 }
@@ -65,7 +48,19 @@ bool T(){
 	return false;
 }
 
-
+bool E(){
+	if (T()){
+		if (comparacionChar('+')){
+			if (E()){
+				return true;
+			}
+			return false;
+		}
+		return true;
+	} else{
+		return false;
+	}
+}
 
 int main(int argc, char** argv) {
 	letra = getchar();
@@ -75,9 +70,9 @@ int main(int argc, char** argv) {
     } while (letra != '\n' && letra != EOF && result);
 	
 	if (result){
-		printf("Parsing Successful\n");
+		printf("Parsing was finished successfully\n");
 	} else{
-		printf("Error\n");
+		printf("Error, cannot parse\n");
 	}
         
 }
